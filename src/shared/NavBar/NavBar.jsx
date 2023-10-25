@@ -1,15 +1,17 @@
 import { NavLink } from "react-router-dom";
 import logo from '../../assets/logo.svg'
+import { AiOutlineShopping } from 'react-icons/ai';
+import { BsSearch } from 'react-icons/bs';
 
 
 const NavBar = () => {
 
     const navLinks = <>
-        <NavLink to='/' className={({isActive}) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Home</a></li></NavLink>
-        <NavLink to='/about' className={({isActive}) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>About</a></li></NavLink>
-        <NavLink to='/services' className={({isActive}) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Services</a></li></NavLink>
-        <NavLink to='/blog' className={({isActive}) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Blog</a></li></NavLink>
-        <NavLink to='/contact' className={({isActive}) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Contact</a></li></NavLink>
+        <NavLink to='/' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Home</a></li></NavLink>
+        <NavLink to='/about' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>About</a></li></NavLink>
+        <NavLink to='/services' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Services</a></li></NavLink>
+        <NavLink to='/blog' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Blog</a></li></NavLink>
+        <NavLink to='/contact' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Contact</a></li></NavLink>
     </>
 
     return (
@@ -23,15 +25,19 @@ const NavBar = () => {
                         {navLinks}
                     </ul>
                 </div>
-                <img src={logo} className="w-24" alt="" />
+                <img src={logo} className="lg:w-24 w-16" alt="" />
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
                     {navLinks}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
+            <div className="navbar-end md:space-x-6">
+                <div className="flex mr-2 md:gap-4 items-center">
+                    <AiOutlineShopping className="text-2xl mr-3"></AiOutlineShopping>
+                    <BsSearch className="text-xl"></BsSearch>
+                </div>
+                <button className="btn btn-outline text-[#FF3811] text-lg font-semibold px-6">Appointment</button>
             </div>
         </div>
     );
