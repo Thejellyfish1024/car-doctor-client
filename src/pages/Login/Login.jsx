@@ -19,7 +19,7 @@ const Login = () => {
                 <div className="text-center lg:text-left">
                     <img src={loginImg} alt="" />
                 </div>
-                <div className="card flex-shrink-0 w-1/2 px-6 py-8  bg-base-100 border  border-[#D0D0D0]">
+                <div className="card flex-shrink-0 w-full lg:w-3/5 px-6 py-8  bg-base-100 border  border-[#D0D0D0]">
                     <h2 className='lg:text-4xl text-2xl font-semibold text-center'>Login</h2>
                     <form onSubmit={handleLogin} className="card-body">
                         <div className="form-control">
