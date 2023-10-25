@@ -1,7 +1,43 @@
 import { Link } from "react-router-dom";
 import loginImg from '../../assets/images/login/login.svg'
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Register = () => {
+
+    const {signUpUser} = useContext(AuthContext)
+
+    const handleSignUp = e =>{
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        console.log(name,email,password);
+        signUpUser(email,password)
+        .then(result => {
+            console.log(result.user);
+            Swal.fire({
+                title: 'User Created Successfully',
+                icon: 'success',
+                confirmButtonText: 'Close'
+              })
+              form.reset();
+        })
+        .catch(error =>{
+            console.log(error);
+            Swal.fire({
+                title: 'Error!',
+                text: `${error.message}`,
+                icon: 'error',
+                confirmButtonText: 'close'
+              })
+              form.reset();
+        })
+    }
+    
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row gap-16">
@@ -10,12 +46,12 @@ const Register = () => {
                 </div>
                 <div className="card flex-shrink-0 w-full lg:w-3/5 px-6 py-8  bg-base-100 border  border-[#D0D0D0]">
                     <h2 className='lg:text-4xl text-2xl font-semibold text-center'>Sign Up</h2>
-                    <form className="card-body">
+                    <form onSubmit={handleSignUp} className="card-body">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text text-lg font-semibold">Name</span>
                             </label>
-                            <input type="email" placeholder="Your name" name='email' className="input input-bordered" required />
+                            <input type="text" placeholder="Your name" name='name' className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -33,7 +69,7 @@ const Register = () => {
                             <button className="btn btn-primary bg-[#FF3811] text-white text-xl font-semibold border-none normal-case">Sign In</button>
                         </div>
                     </form>
-                    <p className='text-lg font-medium text-center'>Or Sign In with</p>
+                    <p className='text-lg font-medium text-center'>Or Sign Up with</p>
                     <div className='flex justify-center items-center mt-5 gap-5'>
                         <button>
                             <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
