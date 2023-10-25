@@ -1,8 +1,13 @@
 
 import { Link } from 'react-router-dom';
 import loginImg from '../../assets/images/login/login.svg'
+import { useContext } from 'react';
+import { AuthContext } from '../../provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Login = () => {
+
+    const {signInUser} = useContext(AuthContext)
 
     const handleLogin = e =>{
         e.preventDefault();
@@ -11,6 +16,26 @@ const Login = () => {
         const password = form.password.value;
 
         console.log(email,password);
+        signInUser(email,password)
+        .then(result =>{
+            console.log(result.user);
+            Swal.fire({
+                title: 'Successfully Logged In',
+                icon: 'success',
+                confirmButtonText: 'Close'
+              })
+              form.reset();
+        })
+        .catch(error =>{
+            console.log(error.message);
+            Swal.fire({
+                title: 'Error!',
+                text: `${error.message}`,
+                icon: 'error',
+                confirmButtonText: 'close'
+              })
+              form.reset();
+        })
     }
 
     return (
