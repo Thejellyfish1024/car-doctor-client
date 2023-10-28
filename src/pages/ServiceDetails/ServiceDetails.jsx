@@ -1,4 +1,4 @@
-import { NavLink, useLoaderData } from "react-router-dom";
+import { Link, NavLink, useLoaderData } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { AiOutlineArrowRight } from 'react-icons/ai';
@@ -7,7 +7,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 const ServiceDetails = () => {
     const { services } = useContext(AuthContext)
     const service = useLoaderData()
-    const { title, price, img, description, facility } = service
+    const { title, price, img, description, facility, _id } = service
     // console.log(service);
     return (
         <div>
@@ -33,7 +33,7 @@ const ServiceDetails = () => {
                         <h2 className="text-2xl font-bold">Services</h2>
                         <ul className="mt-5">
                             {
-                                services.map(singleService => <NavLink key={singleService._id} to={`/service/${singleService._id}`} className={({ isActive }) => isActive ? ' mb-3 p-3 text-lg font-semibold  items-center flex justify-between  rounded-lg bg-[#FF3811] text-white'
+                                services.map(singleService => <NavLink key={singleService._id} to={`/services/${singleService._id}`} className={({ isActive }) => isActive ? ' mb-3 p-3 text-lg font-semibold  items-center flex justify-between  rounded-lg bg-[#FF3811] text-white'
                                     :
                                     'text-lg font-semibold mb-3 p-3 bg-[#FFF]  items-center flex justify-between rounded-lg'}>
                                     <a>{singleService.title}</a>
@@ -44,7 +44,9 @@ const ServiceDetails = () => {
                         </ul>
                     </div>
                     <h3 className="text-4xl font-bold mt-10">Price ${price}</h3>
+                    <Link to={`/services/checkOut/${_id}`}>
                     <button className="btn w-full  mt-8 hover:bg-orange-400 bg-[#FF3811] text-white">Proceed Checkout</button>
+                    </Link>
                 </div>
             </div>
         </div>

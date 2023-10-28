@@ -24,8 +24,7 @@ const NavBar = () => {
     const navLinks = <>
         <NavLink to='/' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Home</a></li></NavLink>
         <NavLink to='/about' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>About</a></li></NavLink>
-        <NavLink to='/services' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Services</a></li></NavLink>
-        <NavLink to='/blog' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Blog</a></li></NavLink>
+        <NavLink to='/myOrders' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>My Orders</a></li></NavLink>
        {
         user ? 
         <button onClick={handleLogOut} className="btn text-xl font-bold ">Log Out</button>
