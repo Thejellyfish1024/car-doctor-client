@@ -2,16 +2,36 @@ import { NavLink } from "react-router-dom";
 import logo from '../../assets/logo.svg'
 import { AiOutlineShopping } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs';
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
 
 
 const NavBar = () => {
+
+    const {user , logOut} = useContext(AuthContext)
+
+    const handleLogOut = () =>{
+        logOut()
+        .then(result =>{
+            console.log(result);
+        })
+        .catch(error =>{
+            console.log(error);
+        })
+    }
+
 
     const navLinks = <>
         <NavLink to='/' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Home</a></li></NavLink>
         <NavLink to='/about' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>About</a></li></NavLink>
         <NavLink to='/services' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Services</a></li></NavLink>
         <NavLink to='/blog' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Blog</a></li></NavLink>
-        <NavLink to='/contact' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Contact</a></li></NavLink>
+       {
+        user ? 
+        <button onClick={handleLogOut} className="btn text-xl font-bold ">Log Out</button>
+        :
+        <NavLink to='/login' className={({ isActive }) => isActive ? 'text-red-500 text-xl font-bold underline' : 'text-xl font-bold'}><li><a>Login</a></li></NavLink>
+       }
     </>
 
     return (

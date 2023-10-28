@@ -3,6 +3,8 @@ import Root from "../Root/Root";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import Home from "../pages/Home/Home";
+import ServiceDetails from "../pages/ServiceDetails/ServiceDetails";
+import PrivateRoute from "./PrivateRoute";
 
 export  const router = createBrowserRouter([
     {
@@ -20,6 +22,11 @@ export  const router = createBrowserRouter([
         {
             path:'/register',
             element:<Register></Register>
+        },
+        {
+          path:'/services/:id',
+          element:<PrivateRoute><ServiceDetails></ServiceDetails></PrivateRoute>,
+          loader:({params}) => fetch(`http://localhost:5000/services/${params.id}`)
         }
       ]
     },

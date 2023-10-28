@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../../assets/images/login/login.svg'
 import { useContext } from 'react';
 import { AuthContext } from '../../provider/AuthProvider';
@@ -7,7 +7,25 @@ import Swal from 'sweetalert2';
 
 const Login = () => {
 
-    const {signInUser} = useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation() 
+
+    const {signInUser, googleLogin} = useContext(AuthContext)
+
+    const handleGoogleLogin = e =>{
+        e.preventDefault();
+        googleLogin()
+        .then(result =>{
+            console.log(result.user);
+            Swal.fire({
+                title: 'Successfully Logged In',
+                icon: 'success',
+                confirmButtonText: 'Close'
+              })
+            navigate(location?.state ? location.state : '/')
+        })
+        .catch(error => console.log(error))
+    }
 
     const handleLogin = e =>{
         e.preventDefault();
@@ -25,6 +43,7 @@ const Login = () => {
                 confirmButtonText: 'Close'
               })
               form.reset();
+              navigate(location?.state ? location.state : '/')
         })
         .catch(error =>{
             console.log(error.message);
@@ -65,18 +84,21 @@ const Login = () => {
                     </form>
                     <p className='text-lg font-medium text-center'>Or Sign In with</p>
                     <div className='flex justify-center items-center mt-5 gap-5'>
+                        {/* facebook */}
                         <button>
                             <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none">
                                 <path d="M17.3047 27.1211V16.5346H20.8761L21.407 12.3896H17.3047V9.74948C17.3047 8.55339 17.6379 7.73448 19.3545 7.73448H21.5297V4.03902C20.4714 3.9256 19.4076 3.87084 18.3432 3.87498C15.1863 3.87498 13.0189 5.80214 13.0189 9.34002V12.3819H9.4707V16.5269H13.0267V27.1211H17.3047Z" fill="#3B5998" />
                             </svg>
                         </button>
+                        {/* linkedin */}
                         <button>
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
                                 <path d="M5.48292 7.697C6.69132 7.697 7.67092 6.7174 7.67092 5.509C7.67092 4.3006 6.69132 3.321 5.48292 3.321C4.27452 3.321 3.29492 4.3006 3.29492 5.509C3.29492 6.7174 4.27452 7.697 5.48292 7.697Z" fill="#0A66C2" />
                                 <path d="M9.73673 9.355V21.494H13.5057V15.491C13.5057 13.907 13.8037 12.373 15.7677 12.373C17.7047 12.373 17.7287 14.184 17.7287 15.591V21.495H21.4997V14.838C21.4997 11.568 20.7957 9.055 16.9737 9.055C15.1387 9.055 13.9087 10.062 13.4057 11.015H13.3547V9.355H9.73673ZM3.59473 9.355H7.36973V21.494H3.59473V9.355Z" fill="#0A66C2" />
                             </svg>
                         </button>
-                        <button>
+                        {/* google */}
+                        <button onClick={handleGoogleLogin}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <g clipPath="url(#clip0_351_972)">
                                     <path d="M4.6875 10.0001C4.6875 9.00919 4.96051 8.08095 5.4348 7.28614V3.91474H2.0634C0.725313 5.65255 0 7.77048 0 10.0001C0 12.2297 0.725313 14.3476 2.0634 16.0854H5.4348V12.714C4.96051 11.9192 4.6875 10.991 4.6875 10.0001Z" fill="#FBBD00" />
