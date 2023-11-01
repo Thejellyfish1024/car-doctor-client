@@ -36,7 +36,11 @@ const Login = () => {
         console.log(email,password);
         signInUser(email,password)
         .then(result =>{
-            console.log(result.user);
+            const loggedInUser = result.user;
+            console.log(loggedInUser);
+
+            const user = {email};
+            console.log('login page user', user);
             Swal.fire({
                 title: 'Successfully Logged In',
                 icon: 'success',
@@ -44,6 +48,23 @@ const Login = () => {
               })
               form.reset();
               navigate(location?.state ? location.state : '/')
+
+            // axios.post('http://localhost:5000/jwt',user,{withCredentials:true})
+            // .then(res =>{
+            //     console.log(res.data);
+            //     if(res.data?.success){
+            //         Swal.fire({
+            //             title: 'Successfully Logged In',
+            //             icon: 'success',
+            //             confirmButtonText: 'Close'
+            //           })
+            //           form.reset();
+            //           navigate(location?.state ? location.state : '/')
+            //     }
+            // })
+
+
+           
         })
         .catch(error =>{
             console.log(error.message);

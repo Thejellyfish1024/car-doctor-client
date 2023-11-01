@@ -37,8 +37,8 @@ export  const router = createBrowserRouter([
         },
         {
           path:'/myOrders',
-          element:<MyOrders></MyOrders>
-        }
+          element:<PrivateRoute><MyOrders></MyOrders></PrivateRoute>,
+        },
       ]
     },
   ]);
